@@ -717,11 +717,10 @@ public class AmqpChannel implements ServerChannelMethodProcessor {
                 return;
             }
 
-//            if (amqpQueue.getRouter("") == null) {
-//                AmqpMessageRouter amqpMessageRouter = new DirectMessageRouter(
-//                        AmqpMessageRouter.Type.Direct, routingKey.toString());
-//                amqpQueue.bindExchange(amqpExchange, amqpMessageRouter);
-//            }
+            if (amqpQueue.getRouter("") == null) {
+                AmqpMessageRouter directRouter = AbstractAmqpMessageRouter.generateRouter(AmqpExchange.Type.Direct);
+                amqpQueue.bindExchange(amqpExchange, directRouter, routingKey.toString(), null);
+            }
         }
         MessagePublishInfo info = new MessagePublishInfo(exchangeName, immediate, mandatory, routingKey);
         setPublishFrame(info, null);

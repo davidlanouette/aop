@@ -345,4 +345,9 @@ public class RabbitMQMessagingTest extends RabbitMQTestBase {
         Assert.assertTrue(count.get() == 2);
 
     }
+
+    @Test
+    public void defaultEmptyExchangeTest() throws Exception {
+        defaultEmptyExchangeTest("vhost1", false);
+    }
 }
